@@ -6,50 +6,66 @@
 
 [
   (intrinsic_type)
-  "dimension"
-  "intent"
-  "in"
-  "out"
-  "inout"
-  "type"
-  "endtype"
-  "attributes"
-  "global"
-  "device"
-  "host"
-  "grid_global"
   "pointer"
 ] @type
 
 [
-  "contains"
-  "public"
+  "allocatable"
+  "attributes"
+  "device"
+  "dimension"
+  "global"
+  "grid_global"
+  "host"
+  "optional"
   "private"
+  "public"
+  "value"
+] @type.qualifier
+
+[
+  "endtype"
+  "type"
+] @type.definition
+
+[
+  "in"
+  "inout"
+  "out"
+] @storageclass
+
+[
+  "contains"
+  "import"
 ] @include
 
 [
-"implicit"
-(none)
+  (none)
+  "implicit"
+  "intent"
 ] @attribute
 
 [
-  "function"
   "endfunction"
   "endprogram"
-  "subroutine"
   "endsubroutine"
+  "function"
+  "procedure"
+  "subroutine"
 ] @keyword.function
 
 [
-  "module"
-  "endmodule"
-  "submodule"
-  "endsubmodule"
   "bind"
   "call"
   "class"
   "continue"
   "cycle"
+  "endenum"
+  "endinterface"
+  "endmodule"
+  "endsubmodule"
+  "endprogram"
+  "enum"
   "enumerator"
   "equivalence"
   "exit"
@@ -57,40 +73,42 @@
   "goto"
   "include"
   "interface"
-  "endinterface"
+  "module"
+  "submodule"
+  "namelist"
   "only"
   "parameter"
-  "procedure"
-  "endprocedure"
   "print"
   "program"
-  "endprogram"
+  "procedure"
   "read"
-  "return"
   "stop"
   "use"
   "write"
-  "enum"
-  "endenum"
   (default)
   (procedure_qualifier)
 ] @keyword
 
+"return" @keyword.return
+
 [
-  "if"
-  "then"
   "else"
   "elseif"
   "endif"
-  "where"
   "endwhere"
+  "if"
+  "then"
+  "where"
+  "selectcase"
+  "case"
+  "endselect"
 ] @conditional
 
 [
   "do"
   "enddo"
-  "while"
   "forall"
+  "while"
 ] @repeat
 
 [
@@ -125,6 +143,8 @@
   ")"
   "["
   "]"
+  "<<<"
+  ">>>"
  ] @punctuation.bracket
 
  ;; Delimiter
@@ -174,7 +194,7 @@
   (name) @function)
 
 (subroutine_call
-	(name) @function)
+  (name) @function)
 
 (keyword_argument
   name: (identifier) @keyword)
