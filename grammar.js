@@ -596,6 +596,7 @@ module.exports = grammar({
       $.where_statement,
       $.forall_statement,
       $.select_case_statement,
+      $.select_type_statement,
       $.do_loop_statement,
       $.format_statement,
       $.print_statement,
@@ -817,6 +818,32 @@ module.exports = grammar({
       $.extent_specifier,
       alias(caseInsensitive('default'), $.default)
     )),
+
+
+    select_type_statement: $ => seq(
+      optional($.block_label_start_expression),
+      whiteSpacedKeyword('select', 'type'),
+      $.selector,
+      $._end_of_statement,
+      repeat1($.type_guard_statement),
+      $.end_select_case_statement
+    ),
+
+    type_guard_statement: $ => seq(
+      choice(
+        whiteSpacedKeyword('class', 'is'),
+        whiteSpacedKeyword('type', 'is'),
+        caseInsensitive('class'),
+      ),
+      choice(
+        seq( '(', $._type_name, ')'),
+        alias(caseInsensitive('default'), $.default)
+      ),
+      optional($._block_label),
+      $._end_of_statement,
+      repeat($._statement)
+    ),
+
 
     format_statement: $ => seq(
       caseInsensitive('format'),

@@ -102,6 +102,9 @@
   "selectcase"
   "case"
   "endselect"
+  "selecttype"
+  "classis"
+  "typeis"
 ] @conditional
 
 [
