@@ -4690,13 +4690,10 @@
         },
         {
           "type": "SYMBOL",
-<<<<<<< HEAD
-=======
           "name": "select_rank_statement"
         },
         {
           "type": "SYMBOL",
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "name": "do_loop_statement"
         },
         {
@@ -7098,141 +7095,6 @@
         }
       ]
     },
-<<<<<<< HEAD
-    "select_type_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "block_label_start_expression"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "PATTERN",
-                    "value": "[sS][eE][lL][eE][cC][tT]"
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "[tT][yY][pP][eE]"
-                  }
-                ]
-              },
-              {
-                "type": "PATTERN",
-                "value": "[sS][eE][lL][eE][cC][tT][tT][yY][pP][eE]"
-              }
-            ]
-          },
-          "named": false,
-          "value": "selecttype"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "selector"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_end_of_statement"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "type_guard_statement"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_select_case_statement"
-        }
-      ]
-    },
-    "type_guard_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "PATTERN",
-                        "value": "[cC][lL][aA][sS][sS]"
-                      },
-                      {
-                        "type": "PATTERN",
-                        "value": "[iI][sS]"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "[cC][lL][aA][sS][sS][iI][sS]"
-                  }
-                ]
-              },
-              "named": false,
-              "value": "classis"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "PATTERN",
-                        "value": "[tT][yY][pP][eE]"
-                      },
-                      {
-                        "type": "PATTERN",
-                        "value": "[iI][sS]"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "[tT][yY][pP][eE][iI][sS]"
-                  }
-                ]
-              },
-              "named": false,
-              "value": "typeis"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "[cC][lL][aA][sS][sS]"
-              },
-              "named": false,
-              "value": "class"
-            }
-          ]
-=======
     "rank_statement": {
       "type": "SEQ",
       "members": [
@@ -7244,7 +7106,6 @@
           },
           "named": false,
           "value": "rank"
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
         },
         {
           "type": "CHOICE",
@@ -7258,11 +7119,7 @@
                 },
                 {
                   "type": "SYMBOL",
-<<<<<<< HEAD
-                  "name": "_type_name"
-=======
                   "name": "case_value_range_list"
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
                 },
                 {
                   "type": "STRING",
@@ -7311,8 +7168,6 @@
         }
       ]
     },
-<<<<<<< HEAD
-=======
     "block_construct": {
       "type": "SEQ",
       "members": [
@@ -7548,7 +7403,6 @@
         }
       ]
     },
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
     "format_statement": {
       "type": "SEQ",
       "members": [

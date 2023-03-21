@@ -927,13 +927,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -2084,13 +2081,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -2198,13 +2192,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -2312,13 +2303,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -2426,13 +2414,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -2952,13 +2937,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -3184,13 +3166,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -3414,13 +3393,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -4644,13 +4620,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -5395,13 +5368,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -5859,8 +5829,6 @@
     }
   },
   {
-<<<<<<< HEAD
-=======
     "type": "select_rank_statement",
     "named": true,
     "fields": {},
@@ -5888,7 +5856,6 @@
     }
   },
   {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
     "type": "select_type_statement",
     "named": true,
     "fields": {},
@@ -5901,11 +5868,7 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-          "type": "end_select_case_statement",
-=======
           "type": "end_select_statement",
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "named": true
         },
         {
@@ -5913,11 +5876,7 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-          "type": "type_guard_statement",
-=======
           "type": "type_statement",
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "named": true
         }
       ]
@@ -6370,13 +6329,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -6695,97 +6651,6 @@
     }
   },
   {
-<<<<<<< HEAD
-    "type": "type_guard_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "assignment_statement",
-          "named": true
-        },
-        {
-          "type": "block_label",
-          "named": true
-        },
-        {
-          "type": "call_expression",
-          "named": true
-        },
-        {
-          "type": "default",
-          "named": true
-        },
-        {
-          "type": "do_loop_statement",
-          "named": true
-        },
-        {
-          "type": "forall_statement",
-          "named": true
-        },
-        {
-          "type": "format_statement",
-          "named": true
-        },
-        {
-          "type": "if_statement",
-          "named": true
-        },
-        {
-          "type": "include_statement",
-          "named": true
-        },
-        {
-          "type": "keyword_statement",
-          "named": true
-        },
-        {
-          "type": "pointer_association_statement",
-          "named": true
-        },
-        {
-          "type": "print_statement",
-          "named": true
-        },
-        {
-          "type": "read_statement",
-          "named": true
-        },
-        {
-          "type": "select_case_statement",
-          "named": true
-        },
-        {
-          "type": "select_type_statement",
-          "named": true
-        },
-        {
-          "type": "statement_label",
-          "named": true
-        },
-        {
-          "type": "subroutine_call",
-          "named": true
-        },
-        {
-          "type": "type_name",
-          "named": true
-        },
-        {
-          "type": "where_statement",
-          "named": true
-        },
-        {
-          "type": "write_statement",
-          "named": true
-        }
-      ]
-    }
-=======
     "type": "type_member",
     "named": true,
     "fields": {}
@@ -6794,7 +6659,6 @@
     "type": "type_name",
     "named": true,
     "fields": {}
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
   },
   {
     "type": "type_qualifier",
@@ -7321,13 +7185,10 @@
           "named": true
         },
         {
-<<<<<<< HEAD
-=======
           "type": "select_rank_statement",
           "named": true
         },
         {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
           "type": "select_type_statement",
           "named": true
         },
@@ -7621,13 +7482,10 @@
     "named": false
   },
   {
-<<<<<<< HEAD
-=======
     "type": "close",
     "named": false
   },
   {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
     "type": "comment",
     "named": true
   },
@@ -8076,13 +7934,10 @@
     "named": false
   },
   {
-<<<<<<< HEAD
-=======
     "type": "selectrank",
     "named": false
   },
   {
->>>>>>> 31552ac43ecaffa443a12ebea68cc526d334892f
     "type": "selecttype",
     "named": false
   },
@@ -8144,10 +7999,6 @@
   },
   {
     "type": "unformatted",
-    "named": false
-  },
-  {
-    "type": "typeis",
     "named": false
   },
   {
