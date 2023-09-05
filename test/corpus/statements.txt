@@ -31,6 +31,8 @@ PROGRAM TEST
   use my_module, only: func2 => foo
   use, intrinsic:: iso_fortran_env, stderr => error_unit
   use :: some_mod
+  use some_mod, only:
+  use some_mod, func2 => foo
 END PROGRAM
 
 ----
@@ -50,6 +52,10 @@ END PROGRAM
     (use_statement (module_name)
       (use_alias (local_name) (identifier)))
     (use_statement (module_name))
+    (use_statement (module_name)
+      (included_items))
+    (use_statement (module_name)
+      (use_alias (local_name) (identifier)))
   (end_program_statement)))
 
 ============================================
@@ -133,7 +139,7 @@ Intrinsic Variable Declarations
 PROGRAM TEST
   INTEGER, PARAMETER :: N = 100, MXLN = 255
   INTEGER :: i, j, k, l(*)
-  REAL(16) :: data(0:N**2), rhs(N)
+  REAL(16) :: data(0:N**2), rhs(N), lhs(0:*)
   REAL*8, TARGET :: tmp
   REAL(KIND=8), CONTIGUOUS, POINTER :: nxt => tmp
   LOGICAL, DIMENSION(:), ALLOCATABLE :: mask
@@ -141,6 +147,7 @@ PROGRAM TEST
   CHARACTER(LEN=*) :: options
   CHARACTER*(MXLN) :: errflag
   CHARACTER(*) :: thing
+  CHARACTER   FMAT*22, OTHER*(*)
   integer::no_whitespace=1
 END PROGRAM
 
@@ -161,7 +168,9 @@ END PROGRAM
       (call_expression (identifier)
         (argument_list
           (extent_specifier (number_literal) (math_expression (identifier) (number_literal)))))
-      (call_expression (identifier) (argument_list (identifier))))
+      (call_expression (identifier) (argument_list (identifier)))
+      (call_expression (identifier) (argument_list
+          (extent_specifier (number_literal) (assumed_size)))))
     (variable_declaration (intrinsic_type) (size) (type_qualifier) (identifier))
     (variable_declaration
       (intrinsic_type) (size (argument_list (keyword_argument (identifier) (number_literal))))
@@ -186,6 +195,10 @@ END PROGRAM
     (variable_declaration
       (intrinsic_type) (size (argument_list (assumed_size)))
       (identifier))
+    (variable_declaration
+      (intrinsic_type)
+      (identifier) (character_length)
+      (identifier) (character_length))
     (variable_declaration
       (intrinsic_type)
       (assignment_statement (identifier) (number_literal)))
@@ -298,6 +311,7 @@ PROGRAM TEST
   TARGET :: i
   PARAMETER (MAXLEN = 255, PI = 3.1415, SCALE_FACTOR = SIN(2 * PI))
   EQUIVALENCE (a, b, c), (d, e, f, r(1))
+  SAVE A, B, /BLOCKC/, D
 END PROGRAM
 
 ----
@@ -323,6 +337,7 @@ END PROGRAM
         (identifier)
         (identifier)
         (call_expression (identifier) (argument_list (number_literal)))))
+    (save_statement (identifier) (identifier) (identifier) (identifier))
   (end_program_statement)))
 
 ============================================
@@ -350,6 +365,11 @@ PROGRAM TEST
     DO WHILE (is_true)
         j = 0
     END DO
+
+    do i = 1, 10
+      if (diff) go to 100
+100 end do
+
 END PROGRAM
 
 ----
@@ -377,7 +397,7 @@ END PROGRAM
         (call_expression (identifier) (argument_list (identifier)))
         (identifier))
       (keyword_statement)
-      (keyword_statement (statement_label))
+      (keyword_statement (statement_label_reference))
     (end_do_loop_statement))
     (do_loop_statement
       (block_label_start_expression)
@@ -405,6 +425,14 @@ END PROGRAM
           (identifier )))
       (assignment_statement
         (identifier) (number_literal))
+      (end_do_loop_statement))
+    (do_loop_statement
+      (loop_control_expression
+        (identifier) (number_literal) (number_literal))
+      (if_statement
+        (parenthesized_expression (identifier))
+        (keyword_statement (statement_label_reference)))
+      (statement_label)
       (end_do_loop_statement))
   (end_program_statement)))
 
@@ -464,6 +492,57 @@ END PROGRAM TEST
     (print_statement (format_identifier)
       (output_item_list (identifier) (identifier)))
     (end_program_statement (name))))
+
+============================================
+Do Label Statement (Obsolescent)
+============================================
+
+program test
+  do 10 i = 1, 10
+    do 10, j = 1, 10
+      foo(i, j) = i * j
+10 continue
+end program test
+
+---
+
+(translation_unit
+  (program
+    (program_statement (name))
+    (do_label_statement
+      (statement_label_reference)
+      (loop_control_expression (identifier) (number_literal) (number_literal)))
+    (do_label_statement
+      (statement_label_reference)
+      (loop_control_expression (identifier) (number_literal) (number_literal)))
+    (assignment_statement
+      (call_expression (identifier) (argument_list (identifier) (identifier)))
+      (math_expression (identifier) (identifier)))
+    (statement_label)
+    (keyword_statement)
+    (end_program_statement (name))))
+
+============================================
+Computed Goto (Obsolescent)
+============================================
+
+program test
+  goto (10, 20, 30) M
+  goto (10, 20, 30) ISAVE(1)
+end program
+
+---
+
+(translation_unit
+  (program
+    (program_statement (name))
+    (keyword_statement
+      (statement_label_reference) (statement_label_reference) (statement_label_reference)
+      (identifier))
+    (keyword_statement
+      (statement_label_reference) (statement_label_reference) (statement_label_reference)
+      (call_expression (identifier) (argument_list (number_literal))))
+    (end_program_statement)))
 
 ============================================
 If Statements
@@ -886,6 +965,8 @@ PROGRAM TEST
 2 FORMAT(2F8.3, F6.2, //, :)
 3 FORMAT(I0, A(2X, I3), 'test')
 4 FORMAT(*(G15.8,:,','))
+5 FORMAT(/1X,'NUMBER OF DATA Total/ACCEPTED'/1X,i10/1X)
+6 FORMAT(3(1H-), 2HOK, 10H SOLUTION // 5D15.7)
 END PROGRAM
 
 ----
@@ -918,6 +999,22 @@ END PROGRAM
         (edit_descriptor)
         (edit_descriptor)
         (string_literal)))
+    (statement_label)
+    (format_statement
+      (transfer_items
+        (edit_descriptor)
+        (string_literal)
+        (edit_descriptor)
+        (edit_descriptor)))
+    (statement_label)
+    (format_statement
+      (transfer_items
+        (edit_descriptor)
+        (hollerith_constant)
+        (hollerith_constant)
+        (hollerith_constant)
+        (edit_descriptor)
+        (edit_descriptor)))
   (end_program_statement)))
 
 ============================================
@@ -1122,6 +1219,9 @@ PROGRAM test
         ENUMERATOR :: red = 1
         ENUMERATOR blue, green
     END ENUM
+    ENUM, BIND(C)
+        ENUMERATOR :: minus_one = -1
+    END ENUM
 END PROGRAM test
 
 ----
@@ -1133,6 +1233,10 @@ END PROGRAM test
       (enum_statement (language_binding (identifier)))
       (enumerator_statement (identifier) (number_literal))
       (enumerator_statement (identifier) (identifier))
+      (end_enum_statement))
+    (enum
+      (enum_statement (language_binding (identifier)))
+      (enumerator_statement (identifier) (unary_expression (number_literal)))
       (end_enum_statement))
     (end_program_statement (name))))
 
@@ -1477,6 +1581,8 @@ program test
   DATA (array(1,k),k=1,n) /3.14e-3, -42.5/
   DATA array(:, N) / &
     54.45_fp, 200.01_fp /
+  DATA complex_array / ( 0, 1 ), ( 1, 0 ) /
+  data params/ param1, param2/
 
   ! This is awful, but this makes sure the specification part has
   ! finished, as is a hacky workaround to make sure the next part is
@@ -1532,6 +1638,14 @@ end program test
         (call_expression (identifier) (argument_list (extent_specifier) (identifier)))
         (data_value
           (number_literal) (number_literal))))
+    (data_statement
+      (data_set
+        (identifier)
+        (data_value (complex_literal (number_literal) (number_literal))
+                    (complex_literal (number_literal) (number_literal)))))
+    (data_statement
+      (data_set (identifier)
+        (data_value (identifier) (identifier))))
     (comment)
     (comment)
     (comment)
@@ -1541,3 +1655,83 @@ end program test
       (call_expression (identifier) (argument_list (identifier)))
       (number_literal))
     (end_program_statement (name))))
+
+============================================
+File Position Statments
+============================================
+
+program test
+  backspace 2
+  backspace (10, iostat=N)
+
+  endfile k
+  endfile (unit=self%scratch, iostat=error)
+
+  rewind(11)
+  rewind(lu_prof(N))
+
+  pause 'this is deleted'
+end program
+
+---
+
+(translation_unit
+  (program
+    (program_statement (name))
+    (file_position_statement (unit_identifier (number_literal)))
+    (file_position_statement
+      (unit_identifier (number_literal))
+      (keyword_argument (identifier) (identifier)))
+    (file_position_statement (unit_identifier (identifier)))
+    (file_position_statement
+      (keyword_argument (identifier) (derived_type_member_expression (identifier) (type_member)))
+      (keyword_argument (identifier) (identifier)))
+    (file_position_statement (unit_identifier (parenthesized_expression (number_literal))))
+    (file_position_statement (unit_identifier
+      (parenthesized_expression (call_expression (identifier) (argument_list (identifier))))))
+    (file_position_statement (string_literal))
+    (end_program_statement)))
+
+========================================
+Inquire Statements
+========================================
+
+program test
+  INQUIRE (IOLENGTH = IOL) A (1:N)
+  INQUIRE (UNIT = JOAN, OPENED = LOG_01, NAMED = LOG_02, &
+           FORM = CHAR_VAR, IOSTAT = IOS)
+end program test
+
+---
+
+(translation_unit
+  (program
+    (program_statement (name))
+    (inquire_statement
+      (keyword_argument (identifier) (identifier))
+      (output_item_list
+        (call_expression (identifier)
+          (argument_list (extent_specifier (number_literal) (identifier))))))
+    (inquire_statement
+      (keyword_argument (identifier) (identifier))
+      (keyword_argument (identifier) (identifier))
+      (keyword_argument (identifier) (identifier))
+      (keyword_argument (identifier) (identifier))
+      (keyword_argument (identifier) (identifier)))
+    (end_program_statement (name))))
+
+========================================
+Arithmetic If Statement (Deleted)
+========================================
+
+  if (d) 10, 20, 30
+end
+
+---
+
+(translation_unit
+  (program
+    (arithmetic_if_statement
+      (parenthesized_expression (identifier))
+      (statement_label_reference) (statement_label_reference) (statement_label_reference))
+    (end_program_statement)))
