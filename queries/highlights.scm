@@ -197,3 +197,6 @@
 
 (derived_type_member_expression
   (type_member) @property)
+
+(call_expression
+  (identifier) @function.call)
