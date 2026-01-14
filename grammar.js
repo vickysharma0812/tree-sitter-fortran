@@ -779,8 +779,7 @@ module.exports = grammar({
     derived_type_procedures: $ => seq(
       $.contains_statement,
       repeat(choice(
-        $.public_statement,
-        $.private_statement,
+        alias('private', $.private_statement),
         $.procedure_statement,
         $.include_statement,
         alias($.preproc_if_in_bound_procedures, $.preproc_if),
@@ -871,10 +870,10 @@ module.exports = grammar({
     ),
 
     variable_modification: $ => seq(
-      repeat1(choice(
+      choice(
         alias($._standalone_type_qualifier, $.type_qualifier),
         $.variable_attributes,
-      )),
+      ),
       optional('::'),
       commaSep1(field('declarator', $._variable_declarator)),
     ),
@@ -1575,15 +1574,15 @@ module.exports = grammar({
             seq('(', field('type', choice($.intrinsic_type, $.identifier)), ')'),
           ),
         ),
-        alias($._class_default, $.default)
+        seq(
+          caseInsensitive('class'),
+          alias(caseInsensitive('default'), $.default)
+        ),
       ),
       optional($._block_label),
       $._end_of_statement,
       repeat($._statement)
     ),
-
-    // Standalone rule otherwise it gets aliased as '(default) (default)'
-    _class_default: $ => whiteSpacedKeyword('class', 'default', false),
 
     case_value_range_list: $ => commaSep1(choice(
       $._expression,
@@ -1618,12 +1617,16 @@ module.exports = grammar({
     associate_statement: $ => seq(
       optional($.block_label_start_expression),
       caseInsensitive('associate'),
-      '(',
-      commaSep1($.association),
-      ')',
+      $.association_list,
       $._end_of_statement,
       repeat($._statement),
       $.end_associate_statement
+    ),
+
+    association_list: $ => seq(
+      '(',
+      commaSep1($.association),
+      ')'
     ),
 
     association: $ => seq(
